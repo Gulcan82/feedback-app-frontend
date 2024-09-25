@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: feedback-frontend
+  labels:
+    app: feedback-frontend
+spec:
+  replicas: 3  # Anzahl der gewünschten Replikate
+  selector:
+    matchLabels:
+      app: feedback-frontend
+  template:
+    metadata:
+      labels:
+        app: feedback-frontend
+    spec:
+      containers:
+        - name: feedback-frontend
+          image: gulcan82/feedback-frontend-app:latest  # Ersetze durch deinen Image-Repository-Pfad
+          ports:
+            - containerPort: 80  # Der Port, auf dem Nginx lauscht
+          env:
+            - name: FEEDBACK_BACKEND_HOST
+              value: "192.168.73.146"  # Passe dies bei Bedarf an
+            - name: FEEDBACK_BACKEND_PORT
+              value: "31815"  # Passe dies bei Bedarf an
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "1000m"
