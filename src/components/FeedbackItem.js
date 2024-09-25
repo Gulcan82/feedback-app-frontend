@@ -1,9 +1,10 @@
 import React from "react";
 import { deleteFeedback } from "../api/feedbackApi";
 
-const FeedbackItem = ({feedback}) => {
+const FeedbackItem = ({feedback, onDeleted }) => {
     const handleDelete = async() => {
         await deleteFeedback(feedback.title);
+        onDeleted();
         
     }
 
